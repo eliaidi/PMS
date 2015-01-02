@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liaochente.pms.productinfo.dao.ProductColorDao">
+<resultMap type="Color" id="Color">
+	<result property="id" column="id"/>
+	<result property="name" column="name"/>
+</resultMap>
+
+<sql id="selectProductColor">
+	SELECT id,name FROM product_color
+</sql>
+
+<select id="getProductColorInfo" resultMap="Color" >
+	<include refid="selectProductColor"/>
+</select>
+
+<select id="getProductColorRec" resultMap="Color" parameterType="String">
+	SELECT 
+		t2.id,
+		t2.name,
+		t1.product_id 
+	FROM 
+		product_color_rec t1 
+	LEFT JOIN 
+		product_color t2 
+	ON t1.color_id=t2.id
+	WHERE 1=1
+		<if test="_parameter != null and _parameter != '' "> AND t1.product_id=#{_parameter}</if>
+</select>
+
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+	 <!-- 该属性指定需要Struts2处理的请求后缀，该属性的默认值是action，即所有匹配*.action的请求都由Struts2处理。
+        如果用户需要指定多个请求后缀，则多个后缀之间以英文逗号（,）隔开。 -->
+	<constant name="struts.action.extension" value="action,do,ac,d,o,org,info" />
+
+	<constant name="struts.devMode" value="true" />
+	<!-- 默认编码 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	
+	<constant name="struts.custom.i18n.resources" value="i18n.message"></constant>   
+	
+	<constant name="struts.configuration.xml.reload" value="true" />
+
+<!--	<constant name="struts.multipart.handler" value="requestParser" />-->
+	
+	<!-- 设置浏览器是否缓存静态内容,默认值为true(生产环境下使用),开发阶段最好关闭 -->
+    <constant name="struts.serve.static.browserCache" value="false" />
+    
+    <!-- 指定允许上传的文件最大字节数。默认值是2097152(2M) -->
+<!--    <constant name="struts.multipart.maxSize" value="10701096"/>-->
+    <!-- 设置上传文件的临时文件夹,默认使用javax.servlet.context.tempdir -->
+<!--    <constant name="struts.multipart.saveDir " value="d:/tmp" />-->
+
+<!--	<bean type="org.apache.struts2.dispatcher.multipart.MultiPartRequest"-->
+<!--		name="requestParser" class="com.liaochente.pms.fileupload.resolver.MyMultiPartRequest"-->
+<!--		scope="default" optional="true" />-->
+
+<!--	<package name="fileUpload" extends="json-default">-->
+<!--		<action name="uploadAction" class="uploadAction">-->
+<!--			<result name="success" type="json">-->
+<!--				<param name="root">status</param>-->
+<!--				<param name="contentType">text/html</param>-->
+<!--			</result>-->
+<!--		</action>-->
+<!--	</package>-->
+
+	<include file="struts/product-struts.xml"></include>
+	<include file="struts/securitycode-struts.xml"></include>
+	<include file="struts/login-struts.xml"></include>
+	<include file="struts/shoppingcart-struts.xml"></include>
+	<include file="struts/order-struts.xml"></include>
+	<include file="struts/usermanager-struts.xml"></include>
+	<include file="struts/service-struts.xml"></include>
+
+</struts>

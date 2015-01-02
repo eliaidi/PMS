@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+	<package name="usermanager" extends="json-default">
+		<interceptors>
+			<interceptor name="userManagerInterceptor" class="com.liaochente.pms.usermanager.interceptor.UserManagerInterceptor">
+			</interceptor>
+		</interceptors>
+		
+		<action name="goUserCenter" class="userManagerAction" method="goUserCenter">
+			<result name="success" type="dispatcher">WEB-INF/page/usercenter/UserCenter.jsp</result>
+			<result name="login">WEB-INF/page/login/Login.jsp</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="userManagerInterceptor" />
+		</action>
+	</package>
+</struts>

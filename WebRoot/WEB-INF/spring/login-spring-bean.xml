@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<bean id="loginDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sessionFactory">
+		</property>
+		<property name="mapperInterface" value="com.liaochente.pms.login.dao.LoginDao">
+		</property>
+	</bean>
+	
+	<bean id="registerDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sessionFactory">
+		</property>
+		<property name="mapperInterface" value="com.liaochente.pms.login.dao.RegisterDao">
+		</property>
+	</bean>
+	
+	<bean id="loginService" class="com.liaochente.pms.login.service.impl.LoginServiceImpl">
+		<property name="loginDao" ref="loginDao"></property>
+	</bean>
+	
+	<bean id="registerService" class="com.liaochente.pms.login.service.impl.RegisterServiceImpl">
+		<property name="dao" ref="registerDao"></property>
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+	
+	<bean id="loginAction" class="com.liaochente.pms.login.action.LoginAction" scope="prototype">
+		<property name="loginService" ref="loginService"></property>
+	</bean>
+	
+	<bean id="registerAction" class="com.liaochente.pms.login.action.RegisterAction" scope="prototype">
+		<property name="service" ref="registerService"></property>
+		<property name="loginService" ref="loginService"></property>
+	</bean>
+</beans>

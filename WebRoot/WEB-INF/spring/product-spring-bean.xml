@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<bean id="productInfoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.liaochente.pms.productinfo.dao.ProductInfoDao">
+		</property>
+		<property name="sqlSessionFactory" ref="sessionFactory">
+		</property>
+	</bean>
+
+	<bean id="productClassDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sessionFactory">
+		</property>
+		<property name="mapperInterface"
+			value="com.liaochente.pms.productinfo.dao.ProductClassDao">
+		</property>
+	</bean>
+
+	<bean id="productBrandDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sessionFactory">
+		</property>
+		<property name="mapperInterface"
+			value="com.liaochente.pms.productinfo.dao.ProductBrandDao">
+		</property>
+	</bean>
+	
+	<bean id="productColorDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sessionFactory">
+		</property>
+		<property name="mapperInterface"
+			value="com.liaochente.pms.productinfo.dao.ProductColorDao">
+		</property>
+	</bean>
+	
+	<bean id="productCommentDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sessionFactory">
+		</property>
+		<property name="mapperInterface"
+			value="com.liaochente.pms.productinfo.dao.ProductCommentDao">
+		</property>
+	</bean>
+	
+	<bean id="recommendProductDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sessionFactory">
+		</property>
+		<property name="mapperInterface"
+			value="com.liaochente.pms.productinfo.dao.RecommendProductDao">
+		</property>
+	</bean>
+
+	<bean id="productInfoService"
+		class="com.liaochente.pms.productinfo.service.impl.ProductInfoServiceImpl">
+		<property name="dao" ref="productInfoDao"></property>
+	</bean>
+
+	<bean id="productClassService"
+		class="com.liaochente.pms.productinfo.service.impl.ProductClassServiceImpl">
+		<property name="dao" ref="productClassDao"></property>
+	</bean>
+
+	<bean id="productBrandService"
+		class="com.liaochente.pms.productinfo.service.impl.ProductBrandServiceImpl">
+		<property name="dao" ref="productBrandDao"></property>
+	</bean>
+	
+	<bean id="productColorService"
+		class="com.liaochente.pms.productinfo.service.impl.ProductColorServiceImpl">
+		<property name="dao" ref="productColorDao"></property>
+	</bean>
+	
+	<bean id="productCommentService"
+		class="com.liaochente.pms.productinfo.service.impl.ProductCommentServiceImpl">
+		<property name="dao" ref="productCommentDao"></property>
+	</bean>
+	
+	<bean id="recommendProductService"
+		class="com.liaochente.pms.productinfo.service.impl.RecommendProductServiceImpl">
+		<property name="dao" ref="recommendProductDao"></property>
+	</bean>
+
+	<bean id="productInfoAction" class="com.liaochente.pms.productinfo.action.ProductInfoAction"
+		scope="prototype">
+		<property name="productInfoService" ref="productInfoService"></property>
+		<property name="productColorService" ref="productColorService"></property>
+		<property name="productBrandService" ref="productBrandService"></property>
+		<property name="productClassService" ref="productClassService"></property>
+	</bean>
+
+	<bean id="productDetailAction"
+		class="com.liaochente.pms.productinfo.action.ProductDetailAction"
+		scope="prototype">
+		<property name="productInfoService" ref="productInfoService"></property>
+		<property name="productCommentService" ref="productCommentService"></property>
+		<property name="productColorService" ref="productColorService"></property>
+		<property name="productClassService" ref="productClassService"></property>
+		<property name="recommendProductService" ref="recommendProductService"></property>
+	</bean>
+	
+	<bean id="indexAction" class="com.liaochente.pms.productinfo.action.IndexAction"
+		scope="prototype">
+		<property name="productInfoService" ref="productInfoService"></property>
+		<property name="productClassService" ref="productClassService"></property>
+		<property name="productBrandService" ref="productBrandService"></property>
+	</bean>
+
+</beans>

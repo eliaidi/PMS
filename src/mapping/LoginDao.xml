@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liaochente.pms.login.dao.LoginDao">
+	<resultMap type="UserInfo" id="UserInfo">
+		<result property="id" column="id"/>
+		<result property="username" column="username"/>
+		<result property="password" column="password"/>
+		<result property="age" column="age"/>
+		<result property="sex" column="sex"/>
+		<result property="securityPassword" column="securityPassword"/>
+		<result property="email" column="email"/>
+		<result property="phone" column="phone"/>
+		<result property="imagesPath" column="imagesPath"/>
+		<result property="freeze" column="freeze"/>
+		<result property="powerid" column="powerid"/>
+		<result property="real_name" column="real_name"/>
+		<result property="identity_card" column="identity_card"/>
+		<result property="power.id" column="powerId"/>
+		<result property="power.name" column="powerName"/>
+		<result property="power.level" column="level"/>
+		<result property="power.imagesPath" column="powerImagesPath"/>
+	</resultMap>
+
+	<select id="selectUserInfo" parameterType="string" resultMap="UserInfo">
+		SELECT 
+			t1.id,
+			t1.username,
+			t1.password,
+			t1.age,
+			t1.sex,
+			t1.securityPassword,
+			t1.email,
+			t1.phone,
+			t1.imagesPath,
+			t1.freeze,
+			t1.powerid,
+			t1.real_name,
+			t1.identity_card,
+			t2.id as powerId,
+			t2.name as powerName,
+			t2.level,
+			t2.imagesPath as powerImagesPath  
+		FROM 
+			user_info t1
+		LEFT JOIN
+			t_power t2
+		ON t1.powerid = t2.id
+		WHERE 1=1 
+			AND freeze = 0 
+			<if test="_parameter != null and _parameter != '' "> and username=#{_parameter}</if> 
+	</select>
+</mapper>

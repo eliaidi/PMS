@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.liaochente.pms.productinfo.dao.ProductInfoDao">
+ <resultMap type="Product" id="Product">
+ 	<result property="id" column="id"/>
+ 	<result property="name" column="name"/>
+ 	<result property="size" column="size"/>
+ 	<result property="price" column="price"/>
+ 	<result property="watt" column="watt"/>
+ 	<result property="onhand" column="onhand"/>
+ 	<result property="weight" column="weight"/>
+ 	<result property="other_param" column="other_param"/>
+ 	<result property="brand_id" column="brand_id"/>
+ 	<result property="class_id" column="class_id"/>
+ 	<result property="color_id" column="color_id"/>
+ 	<result property="brand_name" column="brand_name"/>
+ 	<result property="class_name" column="class_name"/>
+ 	<result property="color_name" column="color_name"/>
+ 	<result property="image" column="image"/>
+ 	<result property="area" column="area"/>
+ 	<result property="manufacturer" column="manufacturer"/>
+ 	<result property="discount" column="discount"/>
+ 	<result property="discription" column="discription"/>
+ 	<result property="user_id" column="user_id"/>
+ 	<result property="user_name" column="user_name"/>
+ 	<result property="identification_code" column="identification_code"/>
+ 	<result property="modification_date" column="modification_date"/>
+ </resultMap>
+	 <sql id="limit">
+	 		limit #{startIndex},#{endIndex}
+	 </sql>
+ 
+	 <sql id="selectProductInfoList">
+		 SELECT 
+		    t1.id,
+			t1.name,
+			t1.size,
+			t1.price,
+			t1.watt,
+			t1.onhand,
+			t1.weight,
+			t1.other_param,
+			t1.brand_id,
+			t1.class_id,
+			t1.image,
+			t1.area,
+			t1.manufacturer,
+			t1.discount AS discount_id,
+			t1.discription,
+			t1.user_id,
+			t1.identification_code,
+			t1.modification_date,
+		    t2.`name` AS brand_name,
+		    t3.`name` AS class_name,
+		    GROUP_CONCAT(t4.id) AS color_id,
+		    GROUP_CONCAT(t4.name) AS color_name,
+		    t5.username as user_name,
+		    t6.discount
+		FROM
+		  (
+			  (
+				  (
+				    (
+				      product t1 
+				      LEFT JOIN `product_brand` t2 
+				        ON t1.`brand_id` = t2.`id`
+				    ) 
+				    LEFT JOIN `product_class` t3 
+				      ON t1.`class_id` = t3.`id`
+				  ) 
+				  LEFT JOIN 
+				    (SELECT 
+				      c1.`id`,
+				      c1.`name`,
+				      c2.`product_id` 
+				    FROM
+				      `product_color` c1 
+				      INNER JOIN `product_color_rec` c2 
+				        ON c1.`id` = c2.`color_id`) t4 
+				    ON t1.`id` = t4.product_id 
+				) LEFT JOIN user_info t5 on t1.user_id=t5.id
+			) LEFT JOIN product_discount t6 ON t1.discount=t6.id
+		WHERE 1=1
+			<if test=" id != null and id != '' "> AND t1.id=#{id} </if>
+			<if test=" name != null and name != '' "> AND t1.name like concat('%',#{name},'%') </if>
+			<if test="  productBrand != null and productBrand != '' "> AND t2.id=#{productBrand}</if>
+			<if test=" price != null and price != '' "> AND t1.price=#{price}</if>
+			<if test=" productClass != null and productClass != '' "> AND t3.id=#{productClass}</if>
+			<if test=" productColor != null and productColor != '' "> AND t4.id=#{productColor}</if>
+		GROUP BY t1.id 
+	 </sql>
+
+	<select id="getProductInfoList" resultMap="Product" parameterType="Map">
+		<include refid="selectProductInfoList" />
+		<include refid="limit" />
+	</select>
+	
+	<select id="getProductInfoCount" resultType="int" parameterType="Map">
+		SELECT 
+			count(1) 
+		FROM
+			(
+				<include refid="selectProductInfoList"/>
+			) t1
+	</select>
+	
+	<select id="getProductDetail" resultType="Product" parameterType="string">
+		 SELECT 
+		    t1.id,
+			t1.name,
+			t1.size,
+			t1.price,
+			t1.watt,
+			t1.onhand,
+			t1.weight,
+			t1.other_param,
+			t1.brand_id,
+			t1.class_id,
+			t1.image,
+			t1.area,
+			t1.manufacturer,
+			t1.discount AS discount_id,
+			t1.discription,
+			t1.user_id,
+			t1.identification_code,
+			t1.modification_date,
+		 	t2.`name` AS brand_name,
+		    t3.`name` AS class_name,
+		    GROUP_CONCAT(t4.id) AS color_id,
+		    GROUP_CONCAT(t4.name) AS color_name,
+		    t5.username as user_name,
+		    t6.discount
+		FROM
+		  (
+			  (
+				  (
+				    (
+				      product t1 
+				      LEFT JOIN `product_brand` t2 
+				        ON t1.`brand_id` = t2.`id`
+				    ) 
+				    LEFT JOIN `product_class` t3 
+				      ON t1.`class_id` = t3.`id`
+				  ) 
+				  LEFT JOIN 
+				    (SELECT 
+				      c1.`id`,
+				      c1.`name`,
+				      c2.`product_id` 
+				    FROM
+				      `product_color` c1 
+				      INNER JOIN `product_color_rec` c2 
+				        ON c1.`id` = c2.`color_id`) t4 
+				    ON t1.`id` = t4.product_id 
+				) LEFT JOIN user_info t5 on t1.user_id=t5.id
+			) LEFT JOIN product_discount t6 ON t1.discount=t6.id
+		WHERE 1=1
+			<if test=" _parameter != null and _parameter != '' "> AND t1.id=#{_parameter} </if>
+		GROUP BY t1.id 
+	</select>
+	
+   
+ </mapper>

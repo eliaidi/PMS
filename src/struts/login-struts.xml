@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+	<package name="login" extends="json-default">
+	
+		<interceptors>
+			<interceptor name="loginInterceptor" class="com.liaochente.pms.login.interceptor.LoginInterceptor">
+			</interceptor>
+		</interceptors>
+
+		<action name="goLogin" class="loginAction" method="goLogin">
+			<result name="success" type="redirectAction">index.action</result>
+			<result name="input"  type="dispatcher">WEB-INF/page/login/Login.jsp</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>	
+		</action>
+		
+		<action name="login" class="loginAction" method="login">
+			<result name="success" type="redirectAction">index.action</result>
+			<result name="input"  type="dispatcher">WEB-INF/page/login/Login.jsp</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>	
+			<interceptor-ref name="tokenSession" />
+		</action>
+
+		<action name="loginOut" class="loginAction" method="loginOut">
+			<result name="success" type="redirectAction">index.action</result>
+			<result name="input" type="redirectAction">index.action</result>
+		</action>
+
+		<action name="goRegister" class="registerAction" method="goRegister">
+			<result name="success">WEB-INF/page/register/Register.jsp</result>
+		</action>
+		
+		<action name="register" class="registerAction" method="registerUserInfo">
+			<result name="success">WEB-INF/page/usercenter/UserCenter.jsp</result>
+			<result name="input">WEB-INF/page/register/Register.jsp</result>
+			<result name="login">WEB-INF/page/login/Login.jsp</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="tokenSession" />
+		</action>
+
+		<action name="checkUserName" class="registerAction" method="checkUserName">
+			<result name="success" type="json">
+				<param name="root">isCheckUserName</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+
+		<action name="requestRegisterTreaty" class="registerAction"
+			method="requestRegisterTreaty">
+			<result name="success" type="json">
+				<param name="root">treatyMap</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+	</package>
+
+</struts>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.liaochente.pms.productinfo.dao.ProductCommentDao">
+ 
+ <sql id="sqlCommentList">
+ 	SELECT 
+		  t2.id AS comment_id,
+		  t2.content AS comment_content,
+		  t2.evaluate_lvl_id,
+		  t2.product_id,
+		  t2.user_id,
+		  t2.comment_date,
+		  t3.imagesPath,
+		  t3.username,
+		  t3.powerid,
+		  t4.level,
+		  t4.name AS level_name 
+		FROM
+		    product_comment t2 
+	    LEFT JOIN 
+		    `user_info` t3 
+        ON 
+        	t2.user_id = t3.id
+	    LEFT JOIN 
+	    	`evaluate_lvl` t4 
+		ON 
+			t2.`evaluate_lvl_id` = t4.`id` 
+		WHERE 1=1
+</sql>
+ <sql id="whereCommentList">
+ 	<if test=" user_id != null and user_id != '' "> AND t2.user_id = #{user_id} </if>
+ </sql>
+
+ <sql id="limit">
+ 		limit #{startIndex},#{endIndex}
+ </sql>
+ 
+ <sql id="orderBy">
+ 	ORDER BY t2.id DESC
+ </sql>
+ 
+ <select id="getProductCommentList" parameterType="Map" resultType="Map" >
+ 	<include refid="sqlCommentList"/>
+ 	<include refid="whereCommentList"/>
+ 	<include refid="orderBy"/>
+ 	<include refid="limit"/>
+ </select>
+ 
+ <select id="getProductCommentListCount" parameterType="Map" resultType="int">
+ 	SELECT
+ 		COUNT(1)
+ 	FROM
+ 		product_comment t2 
+    LEFT JOIN 
+	    `user_info` t3 
+       ON 
+       	t2.user_id = t3.id
+    LEFT JOIN 
+    	`evaluate_lvl` t4 
+	ON 
+		t2.`evaluate_lvl_id` = t4.`id` 
+	WHERE 1=1
+	<include refid="whereCommentList"/>
+ </select>
+
+<select id="getProductCommentInfo" resultType="Map" parameterType="String" >
+		SELECT 
+		  t2.id AS comment_id,
+		  t2.content AS comment_content,
+		  t2.evaluate_lvl_id,
+		  t2.product_id,
+		  t2.user_id,
+		  t2.comment_date,
+		  t3.imagesPath,
+		  t3.username,
+		  t3.powerid,
+		  t4.level,
+		  t4.name AS level_name 
+		FROM
+		  (
+		    product_comment t2 
+		    LEFT JOIN `user_info` t3 
+		      ON t2.user_id = t3.id
+		  ) 
+		  LEFT JOIN `evaluate_lvl` t4 
+		    ON t2.`evaluate_lvl_id` = t4.`id` 
+		WHERE 1=1
+			 <if test=" _parameter != null and _parameter != '' "> AND t2.product_id=#{_parameter} </if>
+	</select>
+	
+	<select id="getProductCommentCount" parameterType="String" resultType="int">
+		SELECT 
+		 count(1) 
+		FROM
+		  (
+		    product_comment t2 
+		    LEFT JOIN `user_info` t3 
+		      ON t2.user_id = t3.id
+		  ) 
+		  LEFT JOIN `evaluate_lvl` t4 
+		    ON t2.`evaluate_lvl_id` = t4.`id` 
+		WHERE 1=1
+			 <if test=" _parameter != null and _parameter != '' "> AND t2.product_id=#{_parameter} </if>
+	</select>
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	
+	<bean id="orderDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sessionFactory">
+		</property>
+		<property name="mapperInterface" value="com.liaochente.pms.ordermanager.dao.OrderDao">
+		</property>
+	</bean>
+	
+	<bean id="orderService" class="com.liaochente.pms.ordermanager.service.impl.OrderServiceImpl">
+		<property name="dao" ref="orderDao"></property>
+	</bean>
+	
+
+	<bean id="orderFormGenerateAction" class="com.liaochente.pms.ordermanager.action.OrderFormGenerateAction" scope="prototype">
+		<property name="orderService" ref="orderService"></property>
+	</bean>
+	
+	<bean id="orderHandlerAction" class="com.liaochente.pms.ordermanager.action.OrderHandlerAction" scope="prototype">
+		<property name="orderService" ref="orderService"></property>
+	</bean>
+</beans>

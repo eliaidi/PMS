@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.liaochente.pms.productinfo.dao.RecommendProductDao">
+	<select id="getRecommendProductInfo" resultType="Map" parameterType="Map">
+	SELECT 
+	  t1.`product_id` AS id,
+	  t2.`name`,
+	  t2.`image`,
+	  t2.`price`,
+	  t3.`discount`,
+	  t1.`update_date`, 
+		t1.id AS asa
+	FROM
+	  (`recommend_product` t1 
+	LEFT JOIN `product` t2 
+	    ON t1.`product_id` = t2.`id`) LEFT JOIN `product_discount` t3 ON t2.`discount`=t3.`id` 
+	WHERE 1=1
+		<if test="is_led_recommend != null and is_led_recommend != '' "> and t1.is_led_recommend=#{is_led_recommend}</if>
+		<if test="is_index_recommend != null and is_index_recommend != '' "> and t1.is_index_recommend=#{is_index_recommend}</if>
+	ORDER BY t1.update_date desc,t1.id desc
+	limit 0,6
+	</select>
+   
+ </mapper>

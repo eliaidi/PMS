@@ -1,0 +1,70 @@
+.h1 {
+	font-size: 40px;
+}
+.h2 {
+	font-size: 30px;
+}
+
+.h3 {
+	font-size: 20px;
+}
+
+.h4 {
+	font-size: 15px;
+}
+
+.h5 {
+	font-size: 10px;
+}
+
+.h6 {
+	font-size: 5px;
+}
+
+.c0 {
+	color:#FFFFFF;
+}
+
+.c1 {
+	color: #000000;
+}
+.c2 {
+	color: #FF7575;
+}
+.c3 {
+	color: #6F00D2;
+}
+.c4 {
+	color: #6C6C6C;
+}
+.c5 {
+	color: #6FB7B7;
+}
+
+.text-align-left {
+	text-align: left;
+}
+.text-align-right {
+	text-align: right;
+}
+.text-align-center {
+	text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

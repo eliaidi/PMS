@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	
+	<bean id="userDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sessionFactory">
+		</property>
+		<property name="mapperInterface" value="com.liaochente.pms.usermanager.dao.UserManagerDao">
+		</property>
+	</bean>
+	
+	<bean id="userService" class="com.liaochente.pms.usermanager.service.impl.UserManagerServiceImpl">
+		<property name="dao" ref="userDao"></property>
+	</bean>
+	
+	<bean id="userManagerAction" class="com.liaochente.pms.usermanager.action.UserManagerAction" scope="prototype">
+		<property name="service" ref="userService"></property>
+		<property name="orderService" ref="orderService"></property>
+		<property name="commentService" ref="productCommentService"></property>
+	</bean>
+
+</beans>

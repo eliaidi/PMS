@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liaochente.pms.login.dao.RegisterDao">
+	
+	<select id="getRegisterTreatyInfo" parameterType="Map" resultType="Map">
+		SELECT 
+		  id,
+		  name,
+		  content,
+		  update_date,
+		  is_using 
+		FROM
+		  `register_treaty_info` 
+		 WHERE 1=1
+		<if test=" update_date != null and update_date != '' "> AND update_date=#{update_date}</if>
+		<if test=" is_using != null and is_using != '' "> AND is_using=#{is_using}</if>
+		<if test=" is_new_one != null and is_new_one != '' "> 
+			AND id=(SELECT MAX(id) FROM `register_treaty_info`)
+		</if>
+	</select>
+</mapper>

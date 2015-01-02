@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias type="bean.Product" alias="Product"/>
+		<typeAlias type="bean.ProductClass" alias="Class"/>
+		<typeAlias type="bean.ProductBrand" alias="Brand"/>
+		<typeAlias type="bean.ProductColor" alias="Color"/>
+		<typeAlias type="bean.UserInfo" alias="UserInfo"/>
+ 		<typeAlias type="bean.Order" alias="Orders"/> 
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="mapping/CommonDao.xml"/>
+		<mapper resource="mapping/ProductInfoDao.xml"/>
+		<mapper resource="mapping/ProductClassDao.xml"/>
+		<mapper resource="mapping/ProductBrandDao.xml"/>
+		<mapper resource="mapping/ProductColorDao.xml"/>
+		<mapper resource="mapping/ProductCommentDao.xml"/>
+		<mapper resource="mapping/RecommendProductDao.xml"/>
+		<mapper resource="mapping/LoginDao.xml"/>
+		<mapper resource="mapping/UserManagerDao.xml"/>
+		<mapper resource="mapping/RegisterDao.xml"/>
+		<mapper resource="mapping/OrderDao.xml"/>
+	</mappers>
+</configuration>

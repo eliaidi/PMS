@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+
+	<field name="userInfo.username">
+		<field-validator type="required">
+			<message>用户名必填</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="minLength">5</param>
+			<param name="maxLength">20</param>
+			<message>用户名必须在5到20 之间</message>
+		</field-validator>
+		<field-validator type="regex">	
+			<param name="expression">
+				<![CDATA[^[a-zA-Z]{1,19}[0-9]{1,19}$]]>
+			</param>
+			<message>用户名必须是字母加数字组合</message>
+		</field-validator>
+	</field>
+	
+	<field name="userInfo.password">
+		<field-validator type="required">
+			<message>密码必填</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="minLength">5</param>
+			<param name="maxLength">20</param>
+			<message>密码必须在5到20 之间</message>
+		</field-validator>
+		<field-validator type="regex">	
+			<param name="expression">
+				<![CDATA[^[a-zA-Z]{1,19}[0-9]{1,19}$]]>
+			</param>
+			<message>密码必须是字母加数字组合</message>
+		</field-validator>
+	</field>
+	
+	<field name="userInfo.email">
+		<field-validator type="required">
+			<message>电子邮箱必填</message>
+		</field-validator>
+		<field-validator type="regex">	
+			<param name="expression">
+				<![CDATA[^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$]]>
+			</param>
+			<message>电子邮箱格式不正确</message>
+		</field-validator>
+	</field>
+	
+	<field name="userInfo.real_name">
+		<field-validator type="required">
+			<message>真实姓名必填</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="minLength">1</param>
+			<param name="maxLength">64</param>
+			<message>真实姓名超长</message>
+		</field-validator>
+	</field>
+	
+	<field name="userInfo.phone">
+		<field-validator type="required">
+			<message>手机号码必填</message>
+		</field-validator>
+		<field-validator type="regex">	
+			<param name="expression">
+				<![CDATA[^0?(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$]]>
+			</param>
+			<message>手机号码格式不正确</message>
+		</field-validator>
+	</field>
+	
+	<field name="userInfo.identity_card">
+		<field-validator type="required">
+			<message>身份证号码必填</message>
+		</field-validator>
+		<field-validator type="regex">	
+			<param name="expression">
+				<![CDATA[^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$]]>
+			</param>
+			<message>身份证号码格式不正确(PS:只支持18位身份证)</message>
+		</field-validator>
+	</field>
+	
+	<field name="userInfo.securityPassword">
+		<field-validator type="required">
+			<message>安全码必填</message>
+		</field-validator>
+		<field-validator type="regex">	
+			<param name="expression">
+				<![CDATA[^[0-9]{11,20}$]]>
+			</param>
+			<message>安全码格式不正确,应为11位到22位的数字组合</message>
+		</field-validator>
+	</field>
+	
+	<field name="securityCode">
+		<field-validator type="regex">	
+			<param name="expression">
+				<![CDATA[[a-zA-Z0-9]{6}]]>
+			</param>
+			<message>验证码格式不正确</message>
+		</field-validator>
+	</field>
+</validators>

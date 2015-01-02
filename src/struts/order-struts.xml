@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	
+	<package name="order" extends="struts-default">
+		<interceptors>
+			<interceptor name="orderGenerateInterceptor" class="com.liaochente.pms.ordermanager.intercepter.OrderFormGenerateInterceptor">
+			</interceptor>
+			<interceptor name="orderHandlerInterceptor" class="com.liaochente.pms.ordermanager.intercepter.OrderHandlerInterceptor">
+			</interceptor>
+		</interceptors>
+		
+		<!-- 生成订单的UUID -->
+		<action name="orderFormGenerate" class="orderFormGenerateAction" method="orderGenerate">
+			<result name="success" type="dispatcher">WEB-INF/page/order/OrderGenerate.jsp</result>
+			<result name="input">WEB-INF/page/order/OrderConfirmation.jsp</result>
+			<result name="error">WEB-INF/page/order/OrderError.jsp</result>
+			<result name="login">WEB-INF/page/login/Login.jsp</result>
+		</action>
+		
+		<!-- 跳转订单确认页面 -->
+		<action name="goOrderConfirmation" class="orderHandlerAction" method="goOrderConfirmation">
+			<result name="success" type="dispatcher">WEB-INF/page/order/OrderConfirmation.jsp</result>
+		</action>
+		
+		<!-- 订单详细信息查看页面 -->
+		<action name="orderHandlerDetail" class="orderHandlerAction" method="orderDetail">
+			<result name="success" type="dispatcher">WEB-INF/page/order/OrderDetail.jsp</result>
+			<result name="error" type="dispatcher">WEB-INF/page/order/OrderError.jsp</result>
+			<result name="login" type="dispatcher">WEB-INF/page/login/Login.jsp</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="orderHandlerInterceptor" />
+		</action>
+		
+		<!-- 查询用户订单列表 -->
+		<action name="orderList" class="orderHandlerAction" method="orderList">
+			<result name="success" type="dispatcher">WEB-INF/page/order/OrderList.jsp</result>
+			<result name="error" type="dispatcher">WEB-INF/page/order/OrderError.jsp</result>
+			<result name="login" type="dispatcher">WEB-INF/page/login/Login.jsp</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="orderHandlerInterceptor" />
+		</action>
+		
+		<!-- 往数据库新增订单信息 -->
+		<action name="orderHandlerAdd" class="orderHandlerAction" method="addOrder">
+			<result name="success" type="chain">orderHandlerDetail</result>
+			<result name="error" type="dispatcher">WEB-INF/page/order/OrderError.jsp</result>
+			<result name="login" type="dispatcher">WEB-INF/page/login/Login.jsp</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="tokenSession" />
+		</action>
+	</package>
+
+</struts>

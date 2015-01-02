@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liaochente.pms.productinfo.dao.ProductClassDao">
+<resultMap type="Class" id="Class">
+	<result property="id" column="id"/>
+	<result property="name" column="name"/>
+</resultMap>
+
+<sql id="selectProductClass">
+	SELECT id,name FROM product_class
+</sql>
+
+<select id="getProductClassInfo" resultMap="Class" >
+	<include refid="selectProductClass"/>
+</select>
+
+</mapper>

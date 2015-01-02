@@ -1,0 +1,200 @@
+body {
+	background: #EEE;
+	background-color: #EEE;
+}
+.body-background-white {
+	background: white;
+}
+
+.body-background {
+	background: white;
+}
+
+.body-container {
+	background-color: white;
+	box-shadow:  1px 1px 3px rgba(162, 162, 162, .8);
+}
+
+.body-background-init {
+	background-color: transparent;
+}
+
+
+#navbar {
+	box-shadow: 1px 1px 3px rgba(162, 162, 162, .8);
+}
+
+#footercolum {
+	height: 100px;
+}
+/*div的背景色CSS*/
+.div-background-color1 {
+	background-color: #E6E6F2;
+}
+.div-background-color2 {
+	background-color: #BCE8F1;
+}
+/*浅蓝色*/
+.div-background-color3 {
+	background-color: #B3D9D9;
+}
+
+.colors1 {
+	background-color: #E0E0E0;
+}
+
+/*layout*/
+.boder-b {
+border-bottom: 1px solid #E1E1E1;
+}
+
+.category-header {
+padding: 0px 10px 0px 10px;
+height: 30px;
+overflow: hidden;
+}
+
+.category-bd {
+clear: both;
+overflow: hidden;
+}
+
+.aglin-center {
+	text-align: center;
+}
+
+.ml10 {
+	margin-left: 10px;
+}
+.ml20 {
+	margin-left: 20px;
+}
+.ml30 {
+	margin-left: 30px;
+}
+.mt10 {
+	margin-top: 10px;
+}
+.mt20 {
+	margin-top: 20px;
+}
+.mt30 {
+	margin-top: 30px;
+}
+.mt40 {
+	margin-top: 40px;
+}
+.mb10 {
+	margin-bottom: 10px;
+}
+.mb20 {
+	margin-bottom: 20px;
+}
+.mb30 {
+	margin-bottom: 30px;
+}
+.mr10 {
+	margin-right: 10px;
+}
+.mr20 {
+	margin-right: 20px;
+}
+.mr30 {
+	margin-right: 30px;
+}
+
+/*ul li 列表CSS*/
+
+
+
+
+/*顶级导航条CSS*/
+.page-header-top {
+background: whiteSmoke url("../images/darkgrain.png");
+padding: 20px 20px 10px;
+margin: 0 0 30px 0;
+border-bottom: 1px solid #DDD;
+-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+-moz-box-shadow: 0 1px 0 rgba(255,255,255,0.5);
+box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/*自定义li标签的图片*/
+.icon-background-one {
+	background: url("../images/background-one.png");
+	width: 300px;
+	height: 150px;
+}
+.icon-background-two {
+	background: url("../images/background-two.png");
+	width: 300px;
+	height: 150px;
+}
+.icon-background-three {
+	background: url("../images/background-three.png");
+	width: 300px;
+	height: 150px;
+}
+.icon-blue-mushroom {
+	background: url("../images/mushroom/blue-mushroom.png") no-repeat;
+	width: 128px;
+	height: 128px;
+}
+
+.icon-pink-mushroom {
+	background: url("../images/mushroom/pink-mushroom.png") no-repeat;
+	width: 128px;
+	height: 128px;
+}
+
+.icon-purple-mushroom {
+	background: url("../images/mushroom/purple-mushroom") no-repeat;
+	width: 128px;
+	height: 128px;
+}
+
+.icon-check-ok {
+	background: url("../images/freeicon/check.png") no-repeat;
+	width: 30px;
+	height: 30px;
+}
+
+.icon-check-no {
+	background: url("../images/freeicon/close_delete.png") no-repeat;
+	width: 30px;
+	height: 30px;
+}
+
+.icon-free-home {
+	background: url("../images/freeicon/home.png") no-repeat;
+	width: 32px;
+	height: 32px;
+}
+
+.icon-free-comment {
+	background: url("../images/freeicon/comment.png") no-repeat;
+	width: 32px;
+	height: 32px;
+}
+
+.icon-free-email {
+	background: url("../images/freeicon/email.png") no-repeat;
+	width: 30px;
+	height: 30px;
+}
+
+/*自定义切图 图标*/
+[class^="free-"],
+[class*=" free-"] {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin-top: 1px;
+  *margin-right: .3em;
+  line-height: 14px;
+  vertical-align: text-top;
+  background-image: url("../img/glyphicons-halflings.png");
+  background-position: 14px 14px;
+  background-repeat: no-repeat;
+}
+

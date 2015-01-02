@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liaochente.pms.ordermanager.dao.OrderDao">
+	<parameterMap type="Orders" id="Orders">
+ 		<parameter property="id"/>
+ 	</parameterMap>
+ 	
+ 	<sql id="limit">
+	 		limit #{startIndex},#{endIndex}
+	 </sql>
+	 
+	 <sql id="orderBy">
+	 	ORDER BY id DESC
+	 </sql>
+	 
+	 <sql id="sqlOrderList">
+	 	SELECT 
+			id,
+			order_number,
+			start_date,
+			end_date,
+			status,
+			send_date,
+			user_id,
+			consignee_name,
+			consignee_address,
+			consignee_phone,
+			shipping_method,
+			user_message,
+			postcode
+		FROM
+			user_order_info
+		WHERE 1=1
+	 </sql>
+	 
+	 <sql id="whereOrderList">
+	 	<if test="id != null and id != ''"> AND id = #{id} </if>
+		<if test="user_id != null and user_id != ''"> AND user_id = #{user_id} </if>
+	 </sql>
+	 
+	 <sql id="sqlSonOrderList">
+	 	SELECT 
+			t1.id,
+			t1.user_order_id,
+			t1.product_id,
+			t1.num,
+			t1.price,
+			t1.status,
+			t1.product_color_id,
+			t2.`name` AS product_name,
+			t2.image,
+			t3.`name` AS color_name
+		FROM
+			order_product_num_info t1
+		JOIN
+			product t2
+		ON
+			t1.product_id = t2.id
+		LEFT JOIN 
+			product_color t3
+		ON
+			t1.product_color_id = t3.id
+		WHERE 1=1
+	 </sql>
+	 
+	  <sql id="whereSonOrderList">
+	 	<if test="id != null and id != ''"> AND user_order_id = #{id} </if>
+	 </sql>
+ 	
+	<select id="selectOrderId" parameterType="Map" resultType="int">
+		SELECT 
+			id 
+		FROM 
+			user_order_info
+		WHERE order_number = #{order_number}
+	</select>
+
+	<insert id="addOrder" parameterType="Map">
+		INSERT INTO 
+			user_order_info 
+		(order_number,start_date,status,user_id,consignee_name,consignee_address,shipping_method,user_message,postcode,consignee_phone)
+		VALUES
+		(#{order_number},#{start_date},#{status},#{user_id},#{consignee_name},#{consignee_address},#{shipping_method},#{user_message},#{postcode},#{consignee_phone})
+	</insert>
+		
+	<insert id="addSonOrder" parameterType="Map">
+		INSERT INTO
+			order_product_num_info
+		(user_order_id,product_id,num,price,product_color_id)
+		VALUES
+		(#{order_id},#{product_id},#{num},#{price},#{product_color_id})
+	</insert>
+	
+	<select id="queryOrderDetail" parameterMap="Orders" resultType="Map">
+			<include refid="sqlOrderList"/>
+			<include refid="whereOrderList"/>
+	</select>
+	
+	<select id="querySonOrderDetail" parameterMap="Orders" resultType="Map">
+		<include refid="sqlSonOrderList"/>
+		<include refid="whereSonOrderList"/>
+	</select>
+	
+	<select id="queryOrderList" parameterType="Map" resultType="Map">
+		<include refid="sqlOrderList"/>
+		<include refid="whereOrderList"/>
+		<include refid="orderBy"/>
+		<include refid="limit"/>
+	</select>
+	
+	<select id="queryOrderListCount" parameterType="Map" resultType="int">
+		SELECT 
+			COUNT(1)
+		FROM 
+			user_order_info
+		WHERE 1=1
+		<include refid="whereOrderList"/>
+	</select>
+	
+	<select id="querySonOrderList" parameterType="Map" resultType="Map">
+		<include refid="sqlSonOrderList"/>
+		<include refid="whereSonOrderList"/>
+	</select>
+	
+	<select id="queryOrderStatusCount" parameterType="Map" resultType="Map">
+		SELECT
+			user_id,
+			COUNT(CASE WHEN status=1 THEN id END) AS unconfirmed,
+			COUNT(CASE WHEN status=2 THEN id END) AS affirm
+		FROM
+			user_order_info
+		WHERE
+			1=1
+			<if test=" user_id != null and user_id != '' "> AND user_id = #{user_id} </if>
+		GROUP BY user_id
+	</select>
+</mapper>

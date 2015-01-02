@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	
+	<package name="shoppingCart" extends="json-default">
+		<action name="addProductInCart" class="shoppingCartAction" method="addProduct">
+			<result name="result">
+				WEB-INF/page/cart/ShoppingCart.jsp
+			</result>
+			<result name="input">
+				WEB-INF/page/cart/ShoppingError.jsp
+			</result>
+		</action>
+		<action name="ajaxAddProduct" class="shoppingCartAction" method="ajaxAddProduct">
+			<result name="success" type="json">
+				<param name="root">ajaxStatus</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<action name="ajaxRemoveProduct" class="shoppingCartAction" method="ajaxRemoveProduct">
+			<result name="success" type="json">
+				<param name="root">ajaxStatus</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		
+	</package>
+
+</struts>
